@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         OutOfPlay();
-        if (Input.GetKeyDown(KeyCode.R)) ResetGame();
+        if (Input.GetKeyDown(KeyCode.R)) SceneManager.LoadScene(0);
     }
 
     private void StartGame()
@@ -61,9 +61,9 @@ public class GameManager : MonoBehaviour
         GameObject brickGroup = new GameObject("Brick Group");
 
         // Creates every single brick
-        for (int i = 1; i <= brickNumbersH; i++)
+        for (int i = 1; i <= SliderBricksH.bricksH; i++)
         {
-            for (int j = 1; j <= brickNumbersV; j++)
+            for (int j = 1; j <= SliderBricksV.bricksV; j++)
             {
                 GameObject thisBrick = Instantiate(brickPrefab, new Vector3(i * 0.60f, j * 0.20f , 0), Quaternion.identity);
                 thisBrick.transform.SetParent(brickGroup.transform);
@@ -71,7 +71,7 @@ public class GameManager : MonoBehaviour
         }
 
         // Centers the group
-        brickGroup.transform.position = new Vector3(0 - 0.30f - ((brickNumbersH * 0.60f) / 2), 0.75f, 0f);
+        brickGroup.transform.position = new Vector3(0 - 0.30f - ((SliderBricksH.bricksH * 0.60f) / 2), 0.75f, 0f);
     }
 
     private void OutOfPlay()
@@ -85,7 +85,7 @@ public class GameManager : MonoBehaviour
     private void ResetGame()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 
 }

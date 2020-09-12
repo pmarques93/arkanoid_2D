@@ -20,7 +20,7 @@ public class Ball : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
 
         BallFired = false;
-        ballSpeed = 350f;
+        ballSpeed = BallSpeed.speed;
     }
 
     // Update is called once per frame
@@ -35,7 +35,7 @@ public class Ball : MonoBehaviour
     {
         if (BallFired == false)
         {
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Fire1") && Time.timeSinceLevelLoad > 0.5f)
             {
                 BallFired = true;
                 rb.AddForce(new Vector2(ballSpeed, ballSpeed));
@@ -79,10 +79,5 @@ public class Ball : MonoBehaviour
         {
             Instantiate(brickHit, transform.position, brickHit.transform.rotation);
         }
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawLine(new Vector3(-10f, player.transform.position.y + 0.08f, 0f), new Vector3(10f, player.transform.position.y + 0.08f, 0f));
     }
 }

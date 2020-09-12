@@ -50,7 +50,7 @@ public class Brick : MonoBehaviour
     {
         if (hp < 1)
         {
-            int randChance = Random.Range(0, 25);
+            int randChance = Random.Range(0, 17);
             GameObject item;
 
             switch (randChance)
