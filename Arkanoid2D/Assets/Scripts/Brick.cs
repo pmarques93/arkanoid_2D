@@ -14,6 +14,9 @@ public class Brick : MonoBehaviour
     // Powerups
     [SerializeField] private GameObject[] items;
 
+    // Destroy effect
+    [SerializeField] GameObject destroyEffectPrefab;
+
     private void Start()
     {
         render = GetComponent<SpriteRenderer>();
@@ -47,19 +50,26 @@ public class Brick : MonoBehaviour
     {
         if (hp < 1)
         {
-            // Instantiate particles death
+            int randChance = Random.Range(0, 25);
+            GameObject item;
 
-            if (Random.Range(0, 100) > 80)
+            switch (randChance)
             {
-                GameObject item = Instantiate(items[0], new Vector3(transform.position.x, transform.position.y, transform.position.z - 0.2f), Quaternion.identity);
-                item.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-40f, 40f), 150f));
-            }
-            else if (Random.Range(0, 100) < 20)
-            {
-                GameObject item = Instantiate(items[1], new Vector3(transform.position.x, transform.position.y, transform.position.z - 0.2f), Quaternion.identity);
-                item.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-40f, 40f), 150f));
+                case 0: // moresize
+                    item = Instantiate(items[0], new Vector3(transform.position.x, transform.position.y, transform.position.z - 0.2f), Quaternion.identity);
+                    item.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-40f, 40f), 150f));
+                    break;
+                case 1: // lesssize
+                    item = Instantiate(items[1], new Vector3(transform.position.x, transform.position.y, transform.position.z - 0.2f), Quaternion.identity);
+                    item.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-40f, 40f), 150f));
+                    break;
+                case 2: // guns
+                    item = Instantiate(items[2], new Vector3(transform.position.x, transform.position.y, transform.position.z - 0.2f), Quaternion.identity);
+                    item.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-40f, 40f), 150f));
+                    break;
             }
 
+            Instantiate(destroyEffectPrefab, transform.position, destroyEffectPrefab.transform.rotation);
             Destroy(gameObject);
         }
     }

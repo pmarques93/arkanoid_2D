@@ -10,6 +10,14 @@ public abstract class PowerUpBase : MonoBehaviour
     // What does it do
     protected abstract void PickUpAbility(Player player);
 
+    private void Update()
+    {
+        if (transform.position.y < -5.5f)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     // Action on trigger enter
     private void OnCollisionEnter2D(Collision2D hitInfo)
     {

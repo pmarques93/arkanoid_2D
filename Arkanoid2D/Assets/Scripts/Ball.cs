@@ -5,7 +5,10 @@ using UnityEngine;
 public class Ball : MonoBehaviour
 {
     private float ballSpeed;
-    private bool ballFired;
+    public bool BallFired { get; set; }
+
+    [SerializeField] GameObject brickHit;
+
 
     private Player player;
     private Rigidbody2D rb;
@@ -16,7 +19,7 @@ public class Ball : MonoBehaviour
         player = FindObjectOfType<Player>();
         rb = GetComponent<Rigidbody2D>();
 
-        ballFired = false;
+        BallFired = false;
         ballSpeed = 350f;
     }
 
@@ -30,11 +33,11 @@ public class Ball : MonoBehaviour
 
     private void InitialPosition()
     {
-        if (ballFired == false)
+        if (BallFired == false)
         {
             if (Input.GetButtonDown("Fire1"))
             {
-                ballFired = true;
+                BallFired = true;
                 rb.AddForce(new Vector2(ballSpeed, ballSpeed));
             }
             else
@@ -63,14 +66,18 @@ public class Ball : MonoBehaviour
             if (hitPoint.point.x < playerCenter)
             {
                 // Controls the angle of the impact and gives a new velocity
-                rb.AddForce(new Vector2(-(Mathf.Abs(difference * ballSpeed * 1f)), ballSpeed));
+                rb.AddForce(new Vector2(Mathf.Clamp(-(Mathf.Abs(difference * ballSpeed)), -350f, 350f), ballSpeed));
             }
             else
             {
                 // Controls the angle of the impact and gives a new velocity
-                rb.AddForce(new Vector2((Mathf.Abs(difference * ballSpeed * 1f)), ballSpeed));
+                rb.AddForce(new Vector2(Mathf.Clamp((Mathf.Abs(difference * ballSpeed)), -350f, 350f), ballSpeed));
             }
-        
+        }
+
+        if (collision.gameObject.GetComponent<Brick>() != null)
+        {
+            Instantiate(brickHit, transform.position, brickHit.transform.rotation);
         }
     }
 

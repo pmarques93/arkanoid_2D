@@ -27,6 +27,9 @@ public class GameManager : MonoBehaviour
     public static GameManager instance = null;
     void Awake()
     {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Confined;
+
         if (instance == null)
             instance = this;
         else if (instance != this)
@@ -44,8 +47,6 @@ public class GameManager : MonoBehaviour
 
     private void StartGame()
     {
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Confined;
         gameover = false;
 
         p1 = Instantiate(playerPrefab) as GameObject;

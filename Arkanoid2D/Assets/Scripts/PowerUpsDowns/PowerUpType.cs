@@ -5,5 +5,6 @@ using UnityEngine;
 public enum PowerUpType
 {
     moreSize,
-    lessSize
+    lessSize,
+    guns
 }
