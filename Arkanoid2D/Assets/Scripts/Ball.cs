@@ -7,22 +7,37 @@ public class Ball : MonoBehaviour
     public float ballSpeed { get; set; }
     public bool BallFired { get; set; }
 
+    public bool BallOnFire { get; set; }
+
     [SerializeField] GameObject brickHit;
 
     private Player player;
-    public Rigidbody2D rb;
+    private ParticleSystem particle;
 
-    // Start is called before the first frame update
-    void Awake()
+    [SerializeField] private Sprite[] sprites;
+    private SpriteRenderer render;
+
+    public Rigidbody2D rb { get; set; }
+    [SerializeField] CircleCollider2D onFireCol;
+
+
+    private void Awake()
     {
         player = FindObjectOfType<Player>();
+        particle = GetComponent<ParticleSystem>();
         rb = GetComponent<Rigidbody2D>();
+        render = GetComponent<SpriteRenderer>();
+    }
 
+    void Start()
+    {
         Ball[] balls = FindObjectsOfType<Ball>();
         if (balls.Length <= 1) BallFired = false;
         else BallFired = true;
 
         ballSpeed = BallSpeed.speed;
+
+        BallOnFire = false;
     }
 
     // Update is called once per frame
@@ -32,6 +47,23 @@ public class Ball : MonoBehaviour
 
         InitialPosition();
         OutOfPlay();
+        BallOnFirePowerUp();
+    }
+
+    private void BallOnFirePowerUp()
+    {
+        if (BallOnFire)
+        {
+            render.sprite = sprites[1];
+            particle.startColor = new Color(0.8f, 0.25f, 0.08f, 1f);
+            onFireCol.enabled = true;
+        }
+        else
+        {
+            render.sprite = sprites[0];
+            particle.startColor = new Color(1f, 1f, 1f, 1f);
+            onFireCol.enabled = false;
+        }
     }
 
     private void InitialPosition()
@@ -92,6 +124,16 @@ public class Ball : MonoBehaviour
         if (collision.gameObject.GetComponent<Brick>() != null)
         {
             Instantiate(brickHit, transform.position, brickHit.transform.rotation);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+
+        if (collision.gameObject.GetComponent<Brick>() != null)
+        {
+            Brick thisBrick = collision.GetComponent<Brick>();
+            thisBrick.hp = 0;
         }
     }
     private void OnDrawGizmos()

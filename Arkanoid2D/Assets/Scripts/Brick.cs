@@ -6,7 +6,7 @@ public class Brick : MonoBehaviour
 {
     // Stats
     [SerializeField] private Sprite[] color;
-    private int hp;
+    public int hp { get; set; }
 
     // Stuff
     private SpriteRenderer render;
@@ -50,7 +50,7 @@ public class Brick : MonoBehaviour
     {
         if (hp < 1)
         {
-            int randChance = Random.Range(0, 17);
+            int randChance = Random.Range(5, 6);
             GameObject item;
 
             switch (randChance)
@@ -67,8 +67,16 @@ public class Brick : MonoBehaviour
                     item = Instantiate(items[2], new Vector3(transform.position.x, transform.position.y, transform.position.z - 0.2f), Quaternion.identity);
                     item.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-40f, 40f), 150f));
                     break;
-                case 3: // guns
+                case 3: // extraBalls
                     item = Instantiate(items[3], new Vector3(transform.position.x, transform.position.y, transform.position.z - 0.2f), Quaternion.identity);
+                    item.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-40f, 40f), 150f));
+                    break;
+                case 4: // ballOnFire
+                    item = Instantiate(items[4], new Vector3(transform.position.x, transform.position.y, transform.position.z - 0.2f), Quaternion.identity);
+                    item.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-40f, 40f), 150f));
+                    break;
+                case 5: // lessSize
+                    item = Instantiate(items[5], new Vector3(transform.position.x, transform.position.y, transform.position.z - 0.2f), Quaternion.identity);
                     item.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-40f, 40f), 150f));
                     break;
             }

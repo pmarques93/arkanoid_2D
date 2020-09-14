@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
 
         p1 = Instantiate(playerPrefab);
 
-        Instantiate(ballPrefab);
+        Instantiate(ballPrefab, new Vector2(p1.transform.position.x, p1.transform.position.y + 0.15f), Quaternion.identity);
         ballsInGame++;
 
         BrickCreation();

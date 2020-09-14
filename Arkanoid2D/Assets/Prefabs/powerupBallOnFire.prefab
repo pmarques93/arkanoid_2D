@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 3752230188572341775}
   - component: {fileID: 4939936784696478813}
-  - component: {fileID: -5403841879961631323}
+  - component: {fileID: 3633980251051952301}
   - component: {fileID: 1207389535451150331}
   - component: {fileID: -4523784040347615060}
   m_Layer: 12
-  m_Name: powerupExtraBall
+  m_Name: powerupBallOnFire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73,8 +73,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 653fa92df300bda46bd8bc3de60d2365, type: 3}
-  m_Color: {r: 0.654902, g: 1, b: 0.6901961, a: 1}
+  m_Sprite: {fileID: 21300000, guid: edf5a690238cd3640a9858544a06124c, type: 3}
+  m_Color: {r: 0.817, g: 1, b: 0.6901961, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -84,7 +84,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-5403841879961631323
+--- !u!114 &3633980251051952301
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -93,11 +93,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1514349485202202865}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2e1c1405fa7e674e93a57ae342b1b19, type: 3}
+  m_Script: {fileID: 11500000, guid: d44ce74f060c96e428cce1a23d25e003, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ballPrefab: {fileID: 430421272731716248, guid: 0b1fc1b8ffae75b478ce221df6f5f7f8,
-    type: 3}
+  ballPrefab: {fileID: 0}
 --- !u!70 &1207389535451150331
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
