@@ -52,8 +52,19 @@ public class Ball : MonoBehaviour
 
     private void BallOnFirePowerUp()
     {
+        // Collider if ball is small
+        if (transform.localScale.x == 0.5f)
+        {
+            onFireCol.radius = 0.45f;
+        }
+        else
+        {
+            onFireCol.radius = 0.3f;
+        }
+
         if (BallOnFire)
         {
+            // orange sprite + different collor + enable collider
             render.sprite = sprites[1];
             particle.startColor = new Color(0.8f, 0.25f, 0.08f, 1f);
             onFireCol.enabled = true;
