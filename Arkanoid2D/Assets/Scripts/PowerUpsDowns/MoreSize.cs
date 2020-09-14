@@ -4,11 +4,6 @@ using UnityEngine;
 
 sealed public class MoreSize : PowerUpBase
 {
-    public MoreSize()
-    {
-        base.Type = PowerUpType.moreSize;
-    }
-
     protected override void PickUpAbility(Player player)
     {
         if (player.transform.localScale.x < 4f)

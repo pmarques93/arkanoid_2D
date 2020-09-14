@@ -4,9 +4,6 @@ using UnityEngine;
 
 public abstract class PowerUpBase : MonoBehaviour
 {
-    // PowerUpType
-    protected PowerUpType Type { get; set; }
-
     // What does it do
     protected abstract void PickUpAbility(Player player);
 

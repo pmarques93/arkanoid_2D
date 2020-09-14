@@ -12,16 +12,18 @@ public class GameManager : MonoBehaviour
 
     // Player & Ball
     private GameObject p1;
-    private GameObject ball;
+    public static int ballsInGame;
 
     // Game State
     private bool gameover;
 
+    /*
     // Brick Range
     [Range(1,29)]
     [SerializeField] int brickNumbersH;
     [Range(1, 20)]
     [SerializeField] int brickNumbersV;
+    */
 
 
     public static GameManager instance = null;
@@ -41,7 +43,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        OutOfPlay();
+        NoBalls();
         if (Input.GetKeyDown(KeyCode.R)) SceneManager.LoadScene(0);
     }
 
@@ -49,8 +51,10 @@ public class GameManager : MonoBehaviour
     {
         gameover = false;
 
-        p1 = Instantiate(playerPrefab) as GameObject;
-        ball = Instantiate(ballPrefab) as GameObject;
+        p1 = Instantiate(playerPrefab);
+
+        Instantiate(ballPrefab);
+        ballsInGame++;
 
         BrickCreation();
     }
@@ -74,9 +78,9 @@ public class GameManager : MonoBehaviour
         brickGroup.transform.position = new Vector3(0 - 0.30f - ((SliderBricksH.bricksH * 0.60f) / 2), 0.75f, 0f);
     }
 
-    private void OutOfPlay()
+    private void NoBalls()
     {
-        if (ball.transform.position.y < -5f)
+        if (ballsInGame == 0)
         {
             Invoke("ResetGame", 1f);
         }

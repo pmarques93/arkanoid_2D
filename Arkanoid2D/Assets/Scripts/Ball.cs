@@ -4,22 +4,24 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-    private float ballSpeed;
+    public float ballSpeed { get; set; }
     public bool BallFired { get; set; }
 
     [SerializeField] GameObject brickHit;
 
-
     private Player player;
-    private Rigidbody2D rb;
+    public Rigidbody2D rb;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         player = FindObjectOfType<Player>();
         rb = GetComponent<Rigidbody2D>();
 
-        BallFired = false;
+        Ball[] balls = FindObjectsOfType<Ball>();
+        if (balls.Length <= 1) BallFired = false;
+        else BallFired = true;
+
         ballSpeed = BallSpeed.speed;
     }
 
@@ -29,6 +31,7 @@ public class Ball : MonoBehaviour
         if (player == null) FindObjectOfType<Player>();
 
         InitialPosition();
+        OutOfPlay();
     }
 
     private void InitialPosition()
@@ -50,6 +53,15 @@ public class Ball : MonoBehaviour
         }
     }
 
+    private void OutOfPlay()
+    {
+        if (transform.position.y < -5f)
+        {
+            GameManager.ballsInGame--;
+            Destroy(gameObject);
+        }
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.GetComponent<Player>()!=null)
@@ -59,19 +71,21 @@ public class Ball : MonoBehaviour
             float playerCenter = player.transform.position.x;
             float difference = playerCenter - hitPoint.point.x;
 
-            if (transform.position.y > player.transform.position.y + 0.08f)
-            rb.velocity = Vector3.zero;
-            
-            // Gains speed if it hits the middle, loses speed if it hits the corners
-            if (hitPoint.point.x < playerCenter)
+            if (transform.position.y > player.transform.position.y -0.01f)
             {
-                // Controls the angle of the impact and gives a new velocity
-                rb.AddForce(new Vector2(Mathf.Clamp(-(Mathf.Abs(difference * ballSpeed)), -350f, 350f), ballSpeed));
-            }
-            else
-            {
-                // Controls the angle of the impact and gives a new velocity
-                rb.AddForce(new Vector2(Mathf.Clamp((Mathf.Abs(difference * ballSpeed)), -350f, 350f), ballSpeed));
+                rb.velocity = Vector3.zero;
+
+                // Gains speed if it hits the middle, loses speed if it hits the corners
+                if (hitPoint.point.x < playerCenter)
+                {
+                    // Controls the angle of the impact and gives a new velocity
+                    rb.AddForce(new Vector2(Mathf.Clamp(-(Mathf.Abs(difference * ballSpeed)), -350f, 350f), ballSpeed));
+                }
+                else
+                {
+                    // Controls the angle of the impact and gives a new velocity
+                    rb.AddForce(new Vector2(Mathf.Clamp((Mathf.Abs(difference * ballSpeed)), -350f, 350f), ballSpeed));
+                }
             }
         }
 
@@ -79,5 +93,9 @@ public class Ball : MonoBehaviour
         {
             Instantiate(brickHit, transform.position, brickHit.transform.rotation);
         }
+    }
+    private void OnDrawGizmos()
+    {
+        //Gizmos.DrawLine(new Vector3(-15f, player.transform.position.y - 0.01f, 0f), new Vector3(15f, player.transform.position.y - 0.01f, 0f));
     }
 }

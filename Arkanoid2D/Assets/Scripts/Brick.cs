@@ -67,6 +67,10 @@ public class Brick : MonoBehaviour
                     item = Instantiate(items[2], new Vector3(transform.position.x, transform.position.y, transform.position.z - 0.2f), Quaternion.identity);
                     item.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-40f, 40f), 150f));
                     break;
+                case 3: // guns
+                    item = Instantiate(items[3], new Vector3(transform.position.x, transform.position.y, transform.position.z - 0.2f), Quaternion.identity);
+                    item.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-40f, 40f), 150f));
+                    break;
             }
 
             Instantiate(destroyEffectPrefab, transform.position, destroyEffectPrefab.transform.rotation);
