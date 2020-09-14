@@ -44,7 +44,7 @@ public class Ball : MonoBehaviour
             {
                 if (player != null)
                 {
-                    transform.position = new Vector2(player.transform.position.x, player.transform.position.y + 0.25f);
+                    transform.position = new Vector2(player.transform.position.x, player.transform.position.y + 0.15f);
                 }
             }
         }

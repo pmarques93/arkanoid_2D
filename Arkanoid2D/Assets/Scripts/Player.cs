@@ -8,17 +8,22 @@ public class Player : MonoBehaviour
     private Vector2 mousePosition;
 
     private Ball ball;
+    private bool ballHit;
 
     public bool HasGuns { get; set; }
     [SerializeField] GameObject ammunitionPrefab;
     [SerializeField] Transform[] ammunitionPositions;
     [SerializeField] GameObject[] guns;
 
+    Animator anim;
+
     private void Start()
     {
         transform.position = new Vector3(0f, -4.25f, 0f);
         ball = FindObjectOfType<Ball>();
+        anim = GetComponent<Animator>();
 
+        ballHit = false;
         HasGuns = false;
     }
 
@@ -28,6 +33,7 @@ public class Player : MonoBehaviour
     {
         Position();
         Guns();
+        Animations();
     }
 
 
@@ -67,5 +73,23 @@ public class Player : MonoBehaviour
                     gun.SetActive(false);
         }
         
+    }
+
+    private void Animations()
+    {
+        anim.SetBool("hit", ballHit);
+    }
+
+    private void BallHitToFalse()
+    {
+        ballHit = false;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.GetComponent<Ball>() != null)
+        {
+            ballHit = true;
+        }
     }
 }
