@@ -42,3 +42,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Walls
+    uniqueID: 1574875057
+    locked: 0
+  - name: Player
+    uniqueID: 1866388509
+    locked: 0
+  - name: Ball
+    uniqueID: 2465052349
+    locked: 0
+  - name: Powerup
+    uniqueID: 257724959
+    locked: 0

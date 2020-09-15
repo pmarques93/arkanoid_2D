@@ -17,10 +17,12 @@ public class Brick : MonoBehaviour
     // Destroy effect
     [SerializeField] GameObject destroyEffectPrefab;
 
+    
+
     private void Start()
     {
         render = GetComponent<SpriteRenderer>();
-
+        
         hp = Random.Range(1, 4);
     }
 

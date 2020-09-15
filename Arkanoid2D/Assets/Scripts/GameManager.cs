@@ -12,7 +12,6 @@ public class GameManager : MonoBehaviour
 
     // Player & Ball
     private GameObject p1;
-    public static int ballsInGame;
 
     // Game State
     private bool gameover;
@@ -38,13 +37,21 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
 
         StartGame();
+
+        //Save last scene loaded
+        SceneManager.sceneLoaded += OnSceneLoad;
     }
 
     // Update is called once per frame
     void Update()
     {
         NoBalls();
-        if (Input.GetKeyDown(KeyCode.R)) SceneManager.LoadScene(0);
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene(0);
+        }
+
+        Debug.Log(BallsInGame());
     }
 
     private void StartGame()
@@ -53,8 +60,10 @@ public class GameManager : MonoBehaviour
 
         p1 = Instantiate(playerPrefab);
 
-        Instantiate(ballPrefab, new Vector2(p1.transform.position.x, p1.transform.position.y + 0.15f), Quaternion.identity);
-        ballsInGame++;
+        if (FindObjectOfType<Ball>() == null)
+        {
+            Instantiate(ballPrefab, new Vector2(p1.transform.position.x, p1.transform.position.y + 0.15f), Quaternion.identity);
+        }
 
         BrickCreation();
     }
@@ -78,18 +87,38 @@ public class GameManager : MonoBehaviour
         brickGroup.transform.position = new Vector3(0 - 0.30f - ((SliderBricksH.bricksH * 0.60f) / 2), 0.75f, 0f);
     }
 
+    private int BallsInGame()
+    {
+        int count = 0;
+        for (int i = 0; i < FindObjectsOfType<Ball>().Length; i++)
+        {
+            count++;
+        }
+        return count;
+    }
+
     private void NoBalls()
     {
-        if (ballsInGame == 0)
+        if (BallsInGame() == 0)
         {
-            Invoke("ResetGame", 1f);
+            Invoke("ResetLevel", 1f);
         }
     }
 
-    private void ResetGame()
+    private void ResetLevel()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene(1);
+        LoadLastScene();
+    }
+
+    private void OnSceneLoad(Scene scene, LoadSceneMode mode)
+    {
+        PlayerPrefs.SetString("last_scene", scene.name);
+    }
+
+    private void LoadLastScene()
+    {
+        SceneManager.LoadScene(PlayerPrefs.GetString("last_scene"));
     }
 
 }

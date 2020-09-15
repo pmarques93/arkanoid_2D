@@ -20,9 +20,11 @@ public class Ball : MonoBehaviour
     public Rigidbody2D rb { get; set; }
     [SerializeField] CircleCollider2D onFireCol;
 
+    CameraShake camShake;
 
     private void Awake()
     {
+        camShake = FindObjectOfType<CameraShake>();
         player = FindObjectOfType<Player>();
         particle = GetComponent<ParticleSystem>();
         rb = GetComponent<Rigidbody2D>();
@@ -55,13 +57,14 @@ public class Ball : MonoBehaviour
         // Collider if ball is small
         if (transform.localScale.x == 0.5f)
         {
-            onFireCol.radius = 0.45f;
+            onFireCol.radius = 0.60f;
         }
         else
         {
             onFireCol.radius = 0.3f;
         }
 
+        // ball on fire power up effects
         if (BallOnFire)
         {
             // orange sprite + different collor + enable collider
@@ -84,12 +87,14 @@ public class Ball : MonoBehaviour
             if (Input.GetButtonDown("Fire1") && Time.timeSinceLevelLoad > 0.5f)
             {
                 BallFired = true;
+                particle.enableEmission = true;
                 rb.AddForce(new Vector2(ballSpeed, ballSpeed));
             }
             else
             {
                 if (player != null)
                 {
+                    particle.enableEmission = false;
                     transform.position = new Vector2(player.transform.position.x, player.transform.position.y + 0.15f);
                 }
             }
@@ -100,7 +105,6 @@ public class Ball : MonoBehaviour
     {
         if (transform.position.y < -5f)
         {
-            GameManager.ballsInGame--;
             Destroy(gameObject);
         }
     }
@@ -114,7 +118,7 @@ public class Ball : MonoBehaviour
             float playerCenter = player.transform.position.x;
             float difference = playerCenter - hitPoint.point.x;
 
-            if (transform.position.y > player.transform.position.y -0.01f)
+            if (transform.position.y > player.transform.position.y -0.1f)
             {
                 rb.velocity = Vector3.zero;
 
@@ -134,6 +138,7 @@ public class Ball : MonoBehaviour
 
         if (collision.gameObject.GetComponent<Brick>() != null)
         {
+            StartCoroutine(camShake.Shake(0.1f, 0.05f));
             Instantiate(brickHit, transform.position, brickHit.transform.rotation);
         }
     }
@@ -149,6 +154,6 @@ public class Ball : MonoBehaviour
     }
     private void OnDrawGizmos()
     {
-        //Gizmos.DrawLine(new Vector3(-15f, player.transform.position.y - 0.01f, 0f), new Vector3(15f, player.transform.position.y - 0.01f, 0f));
+        //Gizmos.DrawLine(new Vector3(-15f, player.transform.position.y - 0.1f, 0f), new Vector3(15f, player.transform.position.y - 0.1f, 0f));
     }
 }

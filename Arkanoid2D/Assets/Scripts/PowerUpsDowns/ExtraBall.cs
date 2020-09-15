@@ -21,7 +21,6 @@ public class ExtraBall : PowerUpBase
             {
                 GameObject ballInstanceGO = Instantiate(ballPrefab, ball.transform.position, ball.transform.rotation);
                 ballInstanceGO.GetComponent<Ball>().rb.AddForce(new Vector2(ball.GetComponent<Ball>().ballSpeed, ball.GetComponent<Ball>().ballSpeed));
-                GameManager.ballsInGame++;
             }
         }
         

@@ -16,12 +16,14 @@ public class Player : MonoBehaviour
     [SerializeField] GameObject[] guns;
 
     Animator anim;
+    CameraShake camShake;
 
     private void Start()
     {
         transform.position = new Vector3(0f, -4.25f, 0f);
         ball = FindObjectOfType<Ball>();
         anim = GetComponent<Animator>();
+        camShake = FindObjectOfType<CameraShake>();
 
         ballHit = false;
         HasGuns = false;
@@ -61,6 +63,7 @@ public class Player : MonoBehaviour
                 {
                     foreach (Transform pos in ammunitionPositions)
                     {
+                        StartCoroutine(camShake.Shake(0.03f, 0.1f));
                         Instantiate(ammunitionPrefab, pos.position, pos.rotation);
                     }
                 }

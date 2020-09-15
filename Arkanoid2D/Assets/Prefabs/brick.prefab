@@ -51,7 +51,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -106,7 +106,7 @@ MonoBehaviour:
   - {fileID: 1514349485202202865, guid: f5de31ac6e87dcd4f8c94ffb8a12b93f, type: 3}
   - {fileID: 1514349485202202865, guid: 9a900219b51383841abaf0cc66c9655a, type: 3}
   - {fileID: 9017502820653460367, guid: ab5dcfc7d426dbc4c9339e87c79b846f, type: 3}
-  destroyEffectPrefab: {fileID: 8770734872551233604, guid: 3672b022a5e1b7f4395ce66323cf1f8a,
+  destroyEffectPrefab: {fileID: 8770734872551233604, guid: 49e6101b6a3048a498d463df311d4cd0,
     type: 3}
 --- !u!61 &3653463500711205335
 BoxCollider2D:
