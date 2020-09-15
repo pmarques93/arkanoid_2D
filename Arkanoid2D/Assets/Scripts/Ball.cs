@@ -141,6 +141,8 @@ public class Ball : MonoBehaviour
             StartCoroutine(camShake.Shake(0.1f, 0.05f));
             Instantiate(brickHit, transform.position, brickHit.transform.rotation);
         }
+
+        SoundManager.PlaySound(SoundClips.hit);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

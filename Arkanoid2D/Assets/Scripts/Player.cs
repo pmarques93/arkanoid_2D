@@ -63,6 +63,7 @@ public class Player : MonoBehaviour
                 {
                     foreach (Transform pos in ammunitionPositions)
                     {
+                        SoundManager.PlaySound(SoundClips.shoot);
                         StartCoroutine(camShake.Shake(0.03f, 0.1f));
                         Instantiate(ammunitionPrefab, pos.position, pos.rotation);
                     }

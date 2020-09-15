@@ -32,6 +32,7 @@ public abstract class PowerUpBase : MonoBehaviour
     // Instantiates the pickup gameobject and destroys this gameobject
     protected virtual void PickAndDestroy()
     {
+        SoundManager.PlaySound(SoundClips.powerup);
         Destroy(gameObject);
     }
 }
