@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     private GameObject p1;
 
     // Game State
-    private bool gameover;
+    
 
     /*
     // Brick Range
@@ -46,19 +46,17 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         NoBalls();
+        NoBricks();
+
         if (Input.GetKeyDown(KeyCode.R))
         {
             SceneManager.LoadScene(0);
         }
-
-        Debug.Log(BallsInGame());
     }
 
     private void StartGame()
     {
-        gameover = false;
-
-        p1 = Instantiate(playerPrefab);
+        p1 = Instantiate(playerPrefab, new Vector2(0f, playerPrefab.transform.position.y), Quaternion.identity);
 
         if (FindObjectOfType<Ball>() == null)
         {
@@ -100,6 +98,14 @@ public class GameManager : MonoBehaviour
     private void NoBalls()
     {
         if (BallsInGame() == 0)
+        {
+            Invoke("ResetLevel", 1f);
+        }
+    }
+
+    private void NoBricks()
+    {
+        if (FindObjectOfType<Brick>() == null)
         {
             Invoke("ResetLevel", 1f);
         }

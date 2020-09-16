@@ -46,7 +46,31 @@ public class Player : MonoBehaviour
         mousePosition = Camera.main.ScreenToWorldPoint(mouseOnScreen);
 
         // Position on screen boards and default chase mouse position
-        transform.position = new Vector2(Mathf.Clamp(mousePosition.x, -8.7f + transform.localScale.x/2, 8.7f - transform.localScale.x / 2), transform.position.y);
+        if (Control.keyboardControl)
+        {
+            if (Input.GetAxisRaw("Horizontal") > 0)
+            {
+                if (transform.position.x < 8.17f)
+                    transform.position += new Vector3(8f, 0f, 0f) * Time.deltaTime;
+                else
+                    transform.position = new Vector3(8.17f, transform.position.y, 0f);
+            }
+            else if (Input.GetAxisRaw("Horizontal") < 0)
+            {
+                if (transform.position.x > -8.17f)
+                    transform.position += new Vector3(-8f, 0f, 0f) * Time.deltaTime;
+                else
+                    transform.position = new Vector3(-8.17f, transform.position.y, 0f);
+            }
+            else
+                transform.position = transform.position;
+        }
+
+        else if (Control.mouseControl)
+        {
+            transform.position = new Vector2(Mathf.Clamp(mousePosition.x, -8.7f + transform.localScale.x / 2, 8.7f - transform.localScale.x / 2), transform.position.y);
+        }
+
     }
 
     private void Guns()
