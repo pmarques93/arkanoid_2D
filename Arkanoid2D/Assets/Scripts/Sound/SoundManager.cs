@@ -26,7 +26,7 @@ public class SoundManager : MonoBehaviour
         switch (clip)
         {
             case SoundClips.shoot:
-                audioSource.PlayOneShot(sounds[0], 0.7f);
+                audioSource.PlayOneShot(sounds[0], 0.4f);
                 break;
             case SoundClips.hit:
                 audioSource.PlayOneShot(sounds[1], 0.5f);
